@@ -18,7 +18,7 @@ Optional:
 
 Example Playbook
 ----------------
-
+```
 - hosts: docker
   roles:
     - role: docker-stack-deploy
@@ -26,3 +26,4 @@ Example Playbook
         docker_stack_file_path: "docker-compose.stack.portainer.yml"
         template_path: "/mnt/shared"
         stack_name: portainer
+```

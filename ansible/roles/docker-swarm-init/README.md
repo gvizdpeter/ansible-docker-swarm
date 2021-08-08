@@ -22,9 +22,10 @@ Dependencies
 
 Example Playbook
 ----------------
-
+```
 - hosts: swarm_leader
   roles:
     - role: docker-swarm-init
       vars:
         leader_ip: 192.168.0.2
+```

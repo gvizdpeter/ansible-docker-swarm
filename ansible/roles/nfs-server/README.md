@@ -12,7 +12,7 @@ Role Variables
 
 Required:
   * shared_mountpoint: server directory that will be shared via NFS
-  * nfs_client_ips: list of IPs 
+  * nfs_client_ips: list of IPs
   * exports_options: options that will be used in exports file
 
 Optional:
@@ -20,11 +20,12 @@ Optional:
 
 Example Playbook
 ----------------
-
-- hosts: nfs_server  
+```
+- hosts: nfs_server
   roles:
     - role: nfs-server
-      vars:    
-        shared_mountpoint: /mnt/swarm_shared      
+      vars:
+        shared_mountpoint: /mnt/swarm_shared
         nfs_client_ips: [192.168.0.2, 192.168.0.3]
         exports_options: (rw,sync,no_subtree_check)
+```

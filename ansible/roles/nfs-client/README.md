@@ -15,7 +15,7 @@ Required:
 
 Example Playbook
 ----------------
-
+```
 - hosts: nfs_client
   roles:
     - role: nfs-client
@@ -23,3 +23,4 @@ Example Playbook
         shared_mountpoint: /mnt/swarm_shared
         shared_volume: 192.168.0.2:/mnt/shared
         mount_options: auto,nofail,noatime,nolock,intr,tcp,actimeo=1800
+```

@@ -18,7 +18,8 @@ Optional:
 
 Example Playbook
 ----------------
-
+```
 - hosts: docker
   roles:
     - role: docker-install
+```

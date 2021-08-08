@@ -26,7 +26,7 @@ Dependencies
 
 Example Playbook
 ----------------
-
+```
 - hosts: swarm_manager
   roles:
     - role: docker-swarm-join
@@ -34,3 +34,4 @@ Example Playbook
         leader_ip: 192.168.0.2
         token: docker-swarm-manager-token
         manager: "true"
+```

@@ -19,7 +19,8 @@ Dependencies
 
 Example Playbook
 ----------------
-
+```
 - hosts: docker
   roles:
     - role: docker-swarm-facts
+```

@@ -24,7 +24,7 @@ Optional:
 
 Example Playbook
 ----------------
-
+```
 - hosts: ha_proxy
   roles:
     - role: ha-proxy
@@ -37,3 +37,4 @@ Example Playbook
         monitor_port: 8080
         monitor_user: admin
         monitor_password: welcome
+```
