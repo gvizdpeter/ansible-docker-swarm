@@ -1,0 +1,3 @@
+---
+- name: Deploy stack
+  command: "docker stack deploy -c {{ template_path }}/docker-compose.stack.{{ stack_name }}.yml {{ stack_name }}"

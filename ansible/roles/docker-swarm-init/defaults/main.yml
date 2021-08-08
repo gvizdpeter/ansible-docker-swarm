@@ -1,0 +1,2 @@
+---
+facts_directory: /etc/ansible/facts.d

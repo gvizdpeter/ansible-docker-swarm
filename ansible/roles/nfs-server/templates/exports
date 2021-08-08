@@ -1,0 +1,3 @@
+{% for nfs_client_ip in nfs_client_ips %}
+{{ shared_mountpoint }} {{ nfs_client_ip }}{{ exports_options }}
+{% endfor %}

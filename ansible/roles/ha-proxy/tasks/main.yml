@@ -1,0 +1,19 @@
+---
+- name: Install ha-proxy
+  apt:
+    name: haproxy
+    update_cache: yes
+    state: latest
+
+- name: Started ha-proxy
+  service:
+    name: haproxy
+    state: started
+    enabled: yes
+
+- name: Provision ha-proxy configuration file
+  template:
+    src: haproxy.cfg
+    dest: "{{ ha_proxy_cfg_file_path }}"
+    mode: 0644
+  notify: Validate and restart ha-proxy

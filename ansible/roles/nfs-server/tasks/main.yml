@@ -1,0 +1,27 @@
+---
+- name: Install nfs-kernel-server
+  apt:
+    name: nfs-kernel-server
+    update_cache: yes
+    state: latest
+
+- name: Started nfs-server service
+  service:
+    name: nfs-server
+    state: started
+    enabled: yes
+
+- name: Create server shared mountpoint
+  file:
+    owner: nobody
+    group: nogroup
+    mode: 0777
+    path: "{{ shared_mountpoint }}"
+    state: directory
+
+- name: Provision exports file
+  template:
+    src: exports
+    dest: "{{ exports_file_path }}"
+    mode: 0644
+  notify: Export shared volumes

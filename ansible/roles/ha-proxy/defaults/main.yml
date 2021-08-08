@@ -1,0 +1,2 @@
+---
+ha_proxy_cfg_file_path: /etc/haproxy/haproxy.cfg

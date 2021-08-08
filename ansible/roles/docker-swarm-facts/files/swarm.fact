@@ -1,0 +1,6 @@
+#!/bin/bash
+
+SWARM_STATUS=$((docker info 2>/dev/null | grep 'Swarm:' || echo 'inactive') | sed 's/Swarm: //g' | sed 's/\s//g')
+SWARM_MANAGER_STATUS=$((docker info 2>/dev/null | grep 'Is Manager:' || echo 'false') | sed 's/Is Manager: //g' | sed 's/\s//g')
+
+echo {\""swarm_status\"" : \""$SWARM_STATUS\"", \""swarm_manager_status\"" : \""$SWARM_MANAGER_STATUS\""}

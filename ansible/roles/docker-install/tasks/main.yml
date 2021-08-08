@@ -1,0 +1,25 @@
+---
+- name: Install required packages for docker installation
+  apt:
+    name: "{{ docker_install_required_packages }}"
+    state: latest
+    update_cache: true
+
+- name: Add docker apt key
+  apt_key:
+    url: "{{ docker_apt_key }}"
+    state: present
+
+- name: Add docker repository
+  apt_repository:
+    repo: "{{ docker_repository_url }} {{ ansible_lsb.codename }} {{ docker_repository_version }}"
+    state: present
+
+- name: Install docker
+  apt:
+    name:
+      - docker-ce
+      - python3-docker
+      - python3-distutils
+    update_cache: yes
+    state: latest

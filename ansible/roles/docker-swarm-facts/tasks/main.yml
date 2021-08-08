@@ -1,0 +1,18 @@
+---
+- name: Create facts directory
+  file:
+    path: "{{ facts_directory }}"
+    recurse: yes
+    state: directory
+
+- name: Copy swarm fact
+  copy:
+    src: "{{ item }}"
+    dest: "{{ facts_directory }}/{{ item }}"
+    mode: 0755
+  with_items: "{{ facts_files }}"
+
+- name: Refresh facts
+  setup:
+    fact_path: "{{ facts_directory }}"
+  

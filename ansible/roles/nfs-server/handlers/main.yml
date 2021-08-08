@@ -1,0 +1,3 @@
+---
+- name: Export shared volumes
+  command: exportfs -ar

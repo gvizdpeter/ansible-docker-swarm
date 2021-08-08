@@ -1,0 +1,12 @@
+---
+- name: Validate ha-proxy configuration
+  command: "haproxy -c -f {{ ha_proxy_cfg_file_path }}"
+  register: configuration_valid
+  listen: Validate and restart ha-proxy
+
+- name: Restart ha-proxy
+  service:
+    name: haproxy
+    state: restarted
+  when: configuration_valid.stdout is search("Configuration file is valid")
+  listen: Validate and restart ha-proxy

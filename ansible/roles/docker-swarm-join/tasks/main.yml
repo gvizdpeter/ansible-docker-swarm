@@ -1,0 +1,19 @@
+---
+- name: Leave swarm
+  command: docker swarm leave -f
+  when: ansible_local.swarm.swarm_status == "active" and ansible_local.swarm.swarm_manager_status != should_be_manager
+  register: swarm_left
+
+- name: Remove node from leader
+  command: "docker node rm -f {{ ansible_hostname }}"
+  when: swarm_left.changed
+  delegate_to: "{{ leader_ip }}"
+
+- name: Refresh swarm status facts
+  when: swarm_left.changed
+  setup:
+    fact_path: "{{ facts_directory }}"
+
+- name: Docker swarm join cluster
+  command: "docker swarm join --token {{ token }} {{ leader_ip }}:{{ swarm_port }}"
+  when: ansible_local.swarm.swarm_status == "inactive"

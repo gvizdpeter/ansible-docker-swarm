@@ -1,0 +1,22 @@
+---
+- name: Install nfs-common
+  apt:
+    name: nfs-common
+    update_cache: yes
+    state: latest
+
+- name: Create client shared mountpoint
+  file:
+    recurse: yes
+    path: "{{ shared_mountpoint }}"
+    state: directory
+
+- name: Mount shared volume
+  mount:
+    backup: yes
+    fstype: nfs
+    opts: "{{ mount_options }}"
+    path: "{{ shared_mountpoint }}"
+    src: "{{ shared_volume }}"
+    state: mounted
+    

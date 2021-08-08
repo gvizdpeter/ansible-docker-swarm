@@ -1,0 +1,14 @@
+---
+- name: Docker swarm init
+  command: "docker swarm init --advertise-addr {{ leader_ip }}"
+  when: ansible_local.swarm.swarm_status == "inactive"
+
+- name: Register manager_token variable
+  command: docker swarm join-token manager -q
+  register: manager_token_register
+  changed_when: no
+
+- name: Register worker_token variable
+  command: docker swarm join-token worker -q
+  register: worker_token_register
+  changed_when: no

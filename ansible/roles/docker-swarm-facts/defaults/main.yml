@@ -1,0 +1,4 @@
+---
+facts_directory: /etc/ansible/facts.d
+facts_files:
+  - swarm.fact

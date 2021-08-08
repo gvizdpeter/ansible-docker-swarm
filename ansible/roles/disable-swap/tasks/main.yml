@@ -1,0 +1,15 @@
+---
+- name: Get swap size
+  shell: "cat /proc/meminfo | grep 'SwapTotal' | grep -Eo '[0-9]+'"
+  register: swap_size
+  changed_when: no
+
+- name: Disable swap
+  command: swapoff -a
+  when: swap_size.stdout != "0"
+
+- name: Remove swap from fstab
+  mount:
+    name: swap
+    fstype: swap
+    state: absent
