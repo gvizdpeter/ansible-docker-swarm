@@ -52,6 +52,13 @@ Vagrant.configure("2") do |config|
           SHELL
         end
       end
+
+      node.trigger.after :up do |trigger|
+        if i == ENV["NUM_OF_NODES"].to_i then
+          trigger.info = "Running ansible provisioning!"
+          trigger.run_remote = {inline: "ssh -o StrictHostKeyChecking=no node1 'ANSIBLE_CONFIG=/vagrant/ansible/ansible.cfg ansible-playbook /vagrant/ansible/swarm_playbook.yaml'", privileged: false}
+        end
+      end
     end
   end
 end

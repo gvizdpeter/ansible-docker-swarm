@@ -1,3 +1,5 @@
 .vagrant
 ansible/ansible.cfg
 ansible/group_vars/all
+ssh/*
+!ssh/.gitkeep
