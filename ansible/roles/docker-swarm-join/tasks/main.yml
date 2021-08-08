@@ -1,7 +1,7 @@
 ---
 - name: Leave swarm
   command: docker swarm leave -f
-  when: ansible_local.swarm.swarm_status == "active" and ansible_local.swarm.swarm_manager_status != should_be_manager
+  when: ansible_local.swarm.swarm_status == "active" and ansible_local.swarm.swarm_manager_status != manager
   register: swarm_left
 
 - name: Remove node from leader

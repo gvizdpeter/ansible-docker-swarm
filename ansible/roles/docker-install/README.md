@@ -1,7 +1,7 @@
 Docker install
 =========
 
-* installs required package
+* installs required packages
 * adds docker apt key
 * adds docker repository
 * installs docker-ce, python3-docker, python3-distutils
@@ -22,5 +22,3 @@ Example Playbook
 - hosts: docker
   roles:
     - role: docker-install
-      vars:
-        ubuntu_version_name: focal

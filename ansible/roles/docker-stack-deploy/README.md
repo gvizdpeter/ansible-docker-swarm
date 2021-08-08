@@ -1,26 +1,28 @@
-Docker install
+Docker stack deploy
 =========
 
-* installs required package
-* adds docker apt key
-* adds docker repository
-* installs docker
+* renders stack file template with provided file and variables
+* triggers deployment of stack if stack file changed
 
 Role Variables
 --------------
 
-Optional:
-  * docker_apt_key (default: https://download.docker.com/linux/ubuntu/gpg): url of docker apt key
-  * docker_repository_url (default: deb [arch=amd64] https://download.docker.com/linux/ubuntu): url of docker repository
-  * docker_repository_version (default: stable): docker repository version
-  * docker_install_required_packages (default: [apt-transport-https, ca-certificates, curl, software-properties-common]): required packages for docker installation
+All variables used in template must be provided to role!
 
+Required:
+  * docker_stack_file_path: path to docker stack file
+  * stack_name: name of docker stack
+
+Optional:
+  * template_path (default: /tmp): directory for storing rendered stack files
 
 Example Playbook
 ----------------
 
 - hosts: docker
   roles:
-    - role: docker-install
+    - role: docker-stack-deploy
       vars:
-        ubuntu_version_name: focal
+        docker_stack_file_path: "docker-compose.stack.portainer.yml"
+        template_path: "/mnt/shared"
+        stack_name: portainer

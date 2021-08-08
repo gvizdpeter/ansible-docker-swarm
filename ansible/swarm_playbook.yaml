@@ -48,7 +48,7 @@
   vars:
     token: "{{ hostvars[groups['swarm_leader'][0]].manager_token }}"
     leader_ip: "{{ hostvars[groups['swarm_leader'][0]].ansible_eth1.ipv4.address }}"
-    should_be_manager: "true"
+    manager: "true"
   roles:
     - docker-swarm-join
 
@@ -61,7 +61,7 @@
   vars:
     token: "{{ hostvars[groups['swarm_leader'][0]].worker_token }}"
     leader_ip: "{{ hostvars[groups['swarm_leader'][0]].ansible_eth1.ipv4.address }}"
-    should_be_manager: "false"
+    manager: "false"
   roles:
     - docker-swarm-join
 
