@@ -24,3 +24,5 @@ After successful ansible provisioning you should be able to access:
 * portainer: http://portainer.your-domain-in-env-file.com
 * traefik: http://traefik.your-domain-in-env-file.com
 * ha-proxy stats page: http://your-domain-in-env-file.com:8080/stats (admin:welcome)
+
+All necessary domain aliases should be added to your hosts file. After running `vagrant destroy -f`, they will be all removed.
