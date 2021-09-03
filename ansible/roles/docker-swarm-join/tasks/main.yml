@@ -4,6 +4,11 @@
   when: ansible_local.swarm.swarm_status == "active" and ansible_local.swarm.swarm_manager_status != manager
   register: swarm_left
 
+- name: Demote manager from leader
+  command: "docker node demote {{ ansible_hostname }}"
+  when: swarm_left.changed and ansible_local.swarm.swarm_manager_status == 'true'
+  delegate_to: "{{ leader_ip }}"
+
 - name: Remove node from leader
   command: "docker node rm -f {{ ansible_hostname }}"
   when: swarm_left.changed

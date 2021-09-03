@@ -2,6 +2,7 @@ Docker swarm join
 =========
 
 * leaves swarm if not registered as disared role
+* triggers manager demoting on leader if node left
 * triggers node removal on leader if node left
 * triggers refresh of swarm facts if node left
 * joins cluster in desired role
