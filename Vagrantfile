@@ -3,11 +3,6 @@ if not Vagrant.has_plugin?("vagrant-env")
   exit 1
 end
 
-if not Vagrant.has_plugin?("vagrant-hosts")
-  puts("Missing plugin, please run: vagrant plugin install vagrant-hosts")
-  exit 1
-end
-
 if not Vagrant.has_plugin?("vagrant-hostmanager")
   puts("Missing plugin, please run: vagrant plugin install vagrant-hostmanager")
   exit 1
@@ -15,8 +10,10 @@ end
 
 Vagrant.configure("2") do |config|
   config.env.enable
+
   config.hostmanager.enabled = true
   config.hostmanager.manage_host = true
+  config.hostmanager.manage_guest = true
 
   config.vm.box = "bento/ubuntu-" + ENV["UBUNTU_VERSION"]
 
@@ -36,13 +33,12 @@ Vagrant.configure("2") do |config|
     config.vm.define "node#{i}" do |node|
       node.vm.hostname = "node#{i}"
       node.vm.network "private_network", ip: "192.168.12.#{100 + i}"
-      node.vm.provision :hosts, :sync_hosts => true
 
       if i == 1 then
         node.hostmanager.aliases = "traefik.#{ENV["SWARM_DOMAIN"]} portainer.#{ENV["SWARM_DOMAIN"]} #{ENV["SWARM_DOMAIN"]}"
         node.vm.provision "shell", inline: "envsubst < /vagrant/ansible/ansible.cfg.tpl > /vagrant/ansible/ansible.cfg", env: {"NUM_OF_NODES" => ENV["NUM_OF_NODES"]}
         node.vm.provision "shell", inline: "envsubst < /vagrant/ansible/group_vars/all.tpl > /vagrant/ansible/group_vars/all", env: {"SWARM_DOMAIN" => ENV["SWARM_DOMAIN"]}
-        node.vm.provision "shell", inline: "echo 'export ANSIBLE_CONFIG=/vagrant/ansible/ansible.cfg' >> /etc/profile.d/ansible.sh"
+        node.vm.provision "shell", inline: "echo 'export ANSIBLE_CONFIG=/vagrant/ansible/ansible.cfg' > /etc/profile.d/ansible.sh"
         node.vm.provision "shell" do |s|
           s.inline = <<-SHELL
             sudo apt update
