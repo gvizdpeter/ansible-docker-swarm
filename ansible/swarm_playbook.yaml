@@ -47,7 +47,7 @@
     - docker-swarm
     - docker-swarm-join-manager
   vars:
-    token: "{{ hostvars[groups['swarm_leader'][0]].manager_token }}"
+    token: "{{ hostvars[groups['swarm_leader'][0]].manager_token if 'swarm_manager' in group_names else hostvars[groups['swarm_leader'][0]].worker_token}}"
     leader_ip: "{{ hostvars[groups['swarm_leader'][0]].ansible_eth1.ipv4.address }}"
     manager: "{{ 'true' if 'swarm_manager' in group_names else 'false' }}"
   roles:
@@ -73,26 +73,18 @@
   gather_facts: no
   tags:
    - deploy-stacks
-   - deploy-traefik-stack
-  vars:
-    docker_stack_file_path: "{{ playbook_dir }}/files/docker-compose.stack.traefik.yml"
-    template_path: "{{ shared_mountpoint }}"
-    stack_name: traefik
-  roles:
-    - docker-stack-deploy
-
--
-  hosts: swarm_leader
-  gather_facts: no
-  tags:
-   - deploy-stacks
    - deploy-portainer-stack
-  vars:
-    docker_stack_file_path: "{{ playbook_dir }}/files/docker-compose.stack.portainer.yml"
-    template_path: "{{ shared_mountpoint }}"
-    stack_name: portainer
-  roles:
-    - docker-stack-deploy
+  tasks:
+    - name: Deploy stacks
+      include_role:
+        name: docker-stack-deploy
+      vars:
+        docker_stack_file_path: "{{ playbook_dir }}/files/docker-compose.stack.{{ item }}.yml"
+        template_path: "{{ shared_mountpoint }}"
+        stack_name: "{{ item }}"
+      with_items:
+        - traefik
+        - portainer
 
 -
   hosts: ha_proxy

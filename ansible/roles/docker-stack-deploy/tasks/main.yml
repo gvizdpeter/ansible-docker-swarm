@@ -1,7 +1,7 @@
 ---
-- name: Generate stack file
+- name: "Generate stack file {{ stack_name }}"
   template:
     src: "{{ docker_stack_file_path }}"
     dest: "{{ template_path }}/docker-compose.stack.{{ stack_name }}.yml"
     mode: 0644
-  notify: Deploy stack
+  notify: "Deploy stack {{ stack_name }}"

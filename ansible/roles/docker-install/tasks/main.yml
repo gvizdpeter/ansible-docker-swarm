@@ -15,6 +15,15 @@
     repo: "{{ docker_repository_url }} {{ ansible_lsb.codename }} {{ docker_repository_version }}"
     state: present
 
+- name: Copy docker config
+  copy:
+    src: "docker"
+    dest: "{{ docker_config_path }}"
+    owner: root
+    group: root
+    mode: "0644"
+    directory_mode: "0755"
+
 - name: Install docker
   apt:
     name:

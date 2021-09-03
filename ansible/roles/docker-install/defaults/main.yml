@@ -1,4 +1,5 @@
 ---
+docker_config_path: /etc
 docker_apt_key: https://download.docker.com/linux/ubuntu/gpg
 docker_repository_url: deb [arch=amd64] https://download.docker.com/linux/ubuntu
 docker_repository_version: stable

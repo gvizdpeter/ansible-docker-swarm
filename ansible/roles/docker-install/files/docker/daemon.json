@@ -1,7 +1,6 @@
 {
-  "registry-mirrors": ["https://artifactory.dsg-i.com"],
   "log-opts": {
     "max-size": "250m",
-    "max-file": "3"
+    "max-file": "4"
   }
 }
